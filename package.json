@@ -1,0 +1,21 @@
+{
+  "name": "cocktail-recipe",
+  "version": "1.0.0",
+  "description": "鸡尾酒配方搜索网站",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@vercel/kv": "^1.0.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "vue": "^3.4.15",
+    "vue-router": "^4.2.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.3",
+    "vite": "^5.0.12"
+  }
+}
