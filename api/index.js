@@ -1,30 +1,20 @@
 const express = require('express');
 const cors = require('cors');
+const { Redis } = require('@upstash/redis');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-let kv = null;
-
-const getKv = async () => {
-  if (!kv) {
-    try {
-      const { kv: vercelKv } = require('@vercel/kv');
-      kv = vercelKv;
-    } catch (e) {
-      console.error('KV error:', e);
-    }
-  }
-  return kv;
-};
+const redis = new Redis({
+  url: process.env.UPSTASH_REDIS_REST_URL,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN,
+});
 
 const readData = async () => {
   try {
-    const kvClient = await getKv();
-    if (!kvClient) return [];
-    const data = await kvClient.get('cocktails');
+    const data = await redis.get('cocktails');
     return data || [];
   } catch (e) {
     console.error('Read error:', e);
@@ -33,9 +23,7 @@ const readData = async () => {
 };
 
 const writeData = async (data) => {
-  const kvClient = await getKv();
-  if (!kvClient) throw new Error('数据库未连接');
-  await kvClient.set('cocktails', data);
+  await redis.set('cocktails', data);
 };
 
 app.get('/api/cocktails', async (req, res) => {
