@@ -86,6 +86,12 @@
             <input v-model="form.tags" type="text" placeholder="清爽, 甜, 夏季" />
           </div>
           
+          <div class="form-group">
+            <label>教程链接</label>
+            <input v-model="form.link" type="url" placeholder="https://..." />
+            <p class="hint">可选：添加视频或网页教程链接</p>
+          </div>
+          
           <div class="form-actions">
             <button type="submit" class="btn-primary">
               {{ activeTab === 'edit' ? '更新' : '添加' }}
@@ -152,7 +158,8 @@ export default {
       steps: '',
       description: '',
       image: '',
-      tags: ''
+      tags: '',
+      link: ''
     })
     
     const login = () => {
@@ -294,7 +301,8 @@ export default {
         steps: '',
         description: '',
         image: '',
-        tags: ''
+        tags: '',
+        link: ''
       }
     }
     
@@ -516,6 +524,12 @@ export default {
 .form-group input:focus, .form-group textarea:focus {
   outline: none;
   border-color: #667eea;
+}
+
+.hint {
+  color: #888;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
 }
 
 .form-actions {
